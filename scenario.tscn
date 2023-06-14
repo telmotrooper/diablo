@@ -39,14 +39,9 @@ mesh = SubResource("PlaneMesh_6angw")
 material = SubResource("StandardMaterial3D_bp66y")
 
 [node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
 collision_mask = 7
 script = ExtResource("1_fb7gs")
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -1.8, 3.29289, 1.84397)
-projection = 1
-current = true
-size = 4.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
@@ -54,6 +49,12 @@ shape = SubResource("CapsuleShape3D_fa70e")
 
 [node name="knight" parent="Player" instance=ExtResource("1_1ko0e")]
 transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0.3, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.0310916, 3.29289, 2.57668)
+projection = 1
+current = true
+size = 4.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707106, 0.707106, 0, -0.707106, 0.707106, 0, 3, 0)
