@@ -1,0 +1,79 @@
+[gd_scene load_steps=14 format=3 uid="uid://dg8qxc44hokeh"]
+
+[ext_resource type="PackedScene" uid="uid://cn04j803cgkxf" path="res://knight/knight.glb" id="1_1ko0e"]
+[ext_resource type="Script" path="res://player.gd" id="1_fb7gs"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6angw"]
+size = Vector2(20, 20)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6wiy2"]
+frequency = 0.015
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gj4ik"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_6wiy2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bp66y"]
+albedo_color = Color(0.254973, 0.447925, 0.153575, 1)
+albedo_texture = SubResource("NoiseTexture2D_gj4ik")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fa70e"]
+radius = 0.1
+height = 0.6
+
+[sub_resource type="Gradient" id="Gradient_fm51n"]
+colors = PackedColorArray(4.57242e-07, 0, 0.311364, 1, 0.101961, 0.054902, 0.109804, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tjajg"]
+gradient = SubResource("Gradient_fm51n")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ntusv"]
+panorama = SubResource("GradientTexture2D_tjajg")
+
+[sub_resource type="Sky" id="Sky_mr2av"]
+sky_material = SubResource("PanoramaSkyMaterial_ntusv")
+
+[sub_resource type="Environment" id="Environment_faqe7"]
+background_mode = 2
+sky = SubResource("Sky_mr2av")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_va8vu"]
+albedo_color = Color(0.0627451, 0.121569, 0.145098, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Ground" type="CSGMesh3D" parent="."]
+use_collision = true
+collision_layer = 2
+mesh = SubResource("PlaneMesh_6angw")
+material = SubResource("StandardMaterial3D_bp66y")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+collision_mask = 3
+script = ExtResource("1_fb7gs")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 2, 1.64397)
+projection = 1
+current = true
+size = 3.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("CapsuleShape3D_fa70e")
+
+[node name="knight" parent="Player" instance=ExtResource("1_1ko0e")]
+transform = Transform3D(0.003, 0, 0, 0, 0.003, 0, 0, 0, 0.003, 0, 0.3, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_faqe7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 3, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, -1)
+material = SubResource("StandardMaterial3D_va8vu")
