@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://dg8qxc44hokeh"]
+[gd_scene load_steps=15 format=3 uid="uid://dg8qxc44hokeh"]
 
 [ext_resource type="PackedScene" uid="uid://cn04j803cgkxf" path="res://knight/knight.glb" id="1_1ko0e"]
 [ext_resource type="Script" path="res://player.gd" id="1_fb7gs"]
+[ext_resource type="PackedScene" uid="uid://0qopfb0qlgbr" path="res://ogre/not_a_monster.glb" id="3_6ypij"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6angw"]
 size = Vector2(20, 20)
@@ -86,3 +87,6 @@ use_collision = true
 collision_layer = 4
 size = Vector3(1, 2, 1)
 material = SubResource("StandardMaterial3D_va8vu")
+
+[node name="ogre" parent="." instance=ExtResource("3_6ypij")]
+transform = Transform3D(0.159099, 0, -0.159099, 0, 0.225, 0, 0.159099, 0, 0.159099, -0.74823, 0, -1.02588)
